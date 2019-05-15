@@ -36,7 +36,8 @@ public class SimpleGameService implements GameService, ListenerManager<PlayersLi
 	@Override
 	public Game newGame(List<Role> selectedRoles, GameOptions options) {
 		if(options == null) {
-			options = new GameOptions(timing.getDefaultPauseDuration(), timing.getDefaultDiscussionDuration(), false);
+			// TODO: should be removed
+			options = new GameOptions(timing.getDefaultPauseDuration(), timing.getDefaultDiscussionDuration(), false, null, 0);
 		}
 		Game game = new Game(new ArrayList<>(), selectedRoles == null ? new ArrayList<>() : selectedRoles, options);
 		return gameRepository.save(game);

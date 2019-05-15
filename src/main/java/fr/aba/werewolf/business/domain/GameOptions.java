@@ -11,4 +11,6 @@ public class GameOptions {
 	private Duration pauseDuration;
 	private Duration discussionDuration;
 	private boolean guidedMode;
+	private String backgroundMusic;
+	private float backgroundMusicVolume;
 }
