@@ -39,7 +39,7 @@ public class InMemoryGameService implements GameService, ListenerManager<Players
 	@Override
 	public Game newGame(List<Role> selectedRoles, GameOptions options) {
 		if(options == null) {
-			options = new GameOptions(timing.getDefaultPauseDuration(), timing.getDefaultDiscussionDuration(), false);
+			options = new GameOptions(timing.getDefaultPauseDuration(), timing.getDefaultDiscussionDuration(), false, null, 0);
 		}
 		Game game = new Game(uuidGenerator.generate(), new ArrayList<>(), selectedRoles == null ? new ArrayList<>() : selectedRoles, options, now());
 		games.put(game.getId(), game);
