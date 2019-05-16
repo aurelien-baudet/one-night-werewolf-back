@@ -1,0 +1,17 @@
+language: java
+jdk: oraclejdk11
+
+before_install:
+- ./mvnw install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
+script:
+- ./mvnw package
+
+deploy:
+  provider: script
+  api_key:
+    secure: $GITHUB_API_TOKEN
+  file: target/werewolf-for-a-night-0.0.1-SNAPSHOT.jar
+  skip_cleanup: true
+  draft: true
+  on:
+    repo: aurelien-baudet/one-night-werewolf-back

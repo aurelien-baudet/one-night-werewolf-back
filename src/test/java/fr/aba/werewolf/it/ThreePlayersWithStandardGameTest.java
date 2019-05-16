@@ -97,13 +97,15 @@ public class ThreePlayersWithStandardGameTest {
 				robber,
 				troublemaker,
 				villager);
-		game = gameService.newGame(selectedRoles, new GameOptions(ofSeconds(5), ofSeconds(3), false));
+		game = gameService.newGame(selectedRoles, new GameOptions(ofSeconds(5), ofSeconds(3), false, null, 0));
 		player1 = new Player("1", "Guigui");
 		player2 = new Player("2", "Yo");
 		player3 = new Player("3", "Cécé");
 		gameService.addPlayer(game, player1);
 		gameService.addPlayer(game, player2);
 		gameService.addPlayer(game, player3);
+		// update game
+		game = gameService.getGame(game.getId());
 	}
 	
 	@Test
