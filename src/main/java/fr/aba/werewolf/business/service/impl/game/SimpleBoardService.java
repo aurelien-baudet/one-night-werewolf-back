@@ -53,14 +53,14 @@ public class SimpleBoardService implements BoardService, ListenerManager<BoardLi
 		for(Player player : game.getPlayers()) {
 			Card card = cardsIterator.next();
 			card.setPosition(new InFrontOfPlayer(player));
-			log.info("{} is {}", player.getName(), card.getRole().getName());
+			log.info("[{}] {} is {}", game.getId(), player.getName(), card.getRole().getName());
 		}
 		// distribute cards in the middle
 		int place = 0;
 		while(cardsIterator.hasNext()) {
 			Card card = cardsIterator.next();
 			card.setPosition(new InTheMiddle(place++));
-			log.info("{} is in the middle ({})", card.getRole().getName(), place);
+			log.info("[{}] {} is in the middle ({})", game.getId(), card.getRole().getName(), place);
 		}
 		// prepare board for each player
 		Map<String, PlayerBoard> playerBoards = new HashMap<>();
