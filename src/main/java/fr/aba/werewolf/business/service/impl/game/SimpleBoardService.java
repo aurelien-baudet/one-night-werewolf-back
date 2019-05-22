@@ -27,7 +27,9 @@ import fr.aba.werewolf.business.service.impl.game.exception.BoardNotFoundExcepti
 import fr.aba.werewolf.business.service.impl.shuffle.Shuffler;
 import fr.aba.werewolf.business.service.impl.uuid.UuidGenerator;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Service
 @AllArgsConstructor
 public class SimpleBoardService implements BoardService, ListenerManager<BoardListener> {
@@ -49,12 +51,16 @@ public class SimpleBoardService implements BoardService, ListenerManager<BoardLi
 		// distribute cards to players
 		Iterator<Card> cardsIterator = shuffledCards.iterator();
 		for(Player player : game.getPlayers()) {
-			cardsIterator.next().setPosition(new InFrontOfPlayer(player));
+			Card card = cardsIterator.next();
+			card.setPosition(new InFrontOfPlayer(player));
+			log.info("{} is {}", player.getName(), card.getRole().getName());
 		}
 		// distribute cards in the middle
 		int place = 0;
 		while(cardsIterator.hasNext()) {
-			cardsIterator.next().setPosition(new InTheMiddle(place++));
+			Card card = cardsIterator.next();
+			card.setPosition(new InTheMiddle(place++));
+			log.info("{} is in the middle ({})", card.getRole().getName(), place);
 		}
 		// prepare board for each player
 		Map<String, PlayerBoard> playerBoards = new HashMap<>();

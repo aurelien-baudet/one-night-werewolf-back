@@ -3,7 +3,6 @@ package fr.aba.werewolf.business.service.impl.video;
 import static java.util.stream.Collectors.toSet;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -75,13 +74,15 @@ public class InMemoryOpenViduVideoStreamService implements VideoStreamService, L
 
 	@Override
 	public void disconnect(Game game, String groupName) throws GameException  {
-		for(Iterator<PlayerMetadata> it = new CopyOnWriteArrayList<>(metadatas).iterator() ; it .hasNext() ; ) {
-			PlayerMetadata meta = it.next();
-			if(meta.getGroupName().equals(groupName)) {
-				it.remove();
-				sessionManager.remove(game, meta.getToken());
-			}
-		}
+		// FIXME: clean memory once a player quit the game. For the moment every time the page is changed or reloaded, the player is disconnected...
+//		List<PlayerMetadata> toBeRemoved = new ArrayList<>();
+//		for(PlayerMetadata meta : new CopyOnWriteArrayList<>(metadatas)) {
+//			if(meta.getGroupName().equals(groupName)) {
+//				toBeRemoved.add(meta);
+//				sessionManager.remove(game, meta.getToken());
+//			}
+//		}
+//		metadatas.removeAll(toBeRemoved);
 		notifyListeners(l -> l.streamsUpdated(game, getMetadataForPlayers(game)));
 	}
 
